@@ -7,6 +7,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description"
         content="Portfolio of Ayyappan P - B.E CSE student (2024–2028), aspiring software developer, and web development enthusiast.">
+    
+    <!-- Open Graph Tags -->
+    <meta property="og:title" content="Ayyappan P | Software Developer Portfolio">
+    <meta property="og:description" content="B.E CSE student passionate about web development and software engineering">
+    <meta property="og:type" content="website">
+    
     <style>
         /* ---------- Global ---------- */
         * {
@@ -75,6 +81,7 @@
         .nav-links a {
             position: relative;
             opacity: 0.85;
+            transition: opacity 0.2s;
         }
 
         .nav-links a::after {
@@ -88,12 +95,54 @@
             transition: width 0.2s;
         }
 
-        .nav-links a:hover {
+        .nav-links a:hover,
+        .nav-links a:focus {
             opacity: 1;
         }
 
-        .nav-links a:hover::after {
+        .nav-links a:hover::after,
+        .nav-links a:focus::after {
             width: 100%;
+        }
+
+        /* Mobile Menu */
+        .mobile-menu-btn {
+            display: none;
+            background: none;
+            border: none;
+            color: #e5e7eb;
+            font-size: 1.5rem;
+            cursor: pointer;
+            padding: 0.5rem;
+        }
+
+        .mobile-nav {
+            display: none;
+            position: fixed;
+            top: 60px;
+            left: 0;
+            right: 0;
+            background: rgba(3, 7, 18, 0.98);
+            backdrop-filter: blur(18px);
+            border-bottom: 1px solid rgba(148, 163, 184, 0.18);
+            padding: 1rem 0;
+            z-index: 19;
+        }
+
+        .mobile-nav.active {
+            display: block;
+        }
+
+        .mobile-nav a {
+            display: block;
+            padding: 0.75rem 1.5rem;
+            opacity: 0.85;
+            transition: opacity 0.2s, background 0.2s;
+        }
+
+        .mobile-nav a:hover {
+            opacity: 1;
+            background: rgba(99, 102, 241, 0.1);
         }
 
         /* ---------- Hero ---------- */
@@ -124,6 +173,12 @@
             right: -60px;
             top: -60px;
             z-index: -1;
+            animation: pulse 4s ease-in-out infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 0.6; transform: scale(1); }
+            50% { opacity: 0.8; transform: scale(1.05); }
         }
 
         .hero-inner {
@@ -138,7 +193,7 @@
             display: inline-flex;
             align-items: center;
             gap: 0.4rem;
-            padding: 0.2rem 0.65rem;
+            padding: 0.3rem 0.8rem;
             border-radius: 999px;
             background: rgba(15, 23, 42, 0.95);
             border: 1px solid rgba(148, 163, 184, 0.55);
@@ -146,6 +201,7 @@
             text-transform: uppercase;
             letter-spacing: 0.14em;
             margin-bottom: 0.8rem;
+            animation: fadeInDown 0.6s ease-out;
         }
 
         .hero-badge-dot {
@@ -154,6 +210,23 @@
             border-radius: 999px;
             background: #22c55e;
             box-shadow: 0 0 16px #22c55e;
+            animation: blink 2s ease-in-out infinite;
+        }
+
+        @keyframes blink {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.3; }
+        }
+
+        @keyframes fadeInDown {
+            from {
+                opacity: 0;
+                transform: translateY(-20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
         }
 
         .hero-title {
@@ -161,16 +234,29 @@
             font-weight: 750;
             letter-spacing: 0.03em;
             margin-bottom: 0.3rem;
+            animation: fadeInUp 0.6s ease-out 0.2s both;
         }
 
         .hero-title span {
             color: #818cf8;
         }
 
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
         .hero-role {
             font-size: 1.05rem;
             color: #c7d2fe;
             margin-bottom: 1rem;
+            animation: fadeInUp 0.6s ease-out 0.3s both;
         }
 
         .hero-subtitle {
@@ -178,12 +264,14 @@
             color: #9ca3af;
             max-width: 32rem;
             margin-bottom: 1.3rem;
+            animation: fadeInUp 0.6s ease-out 0.4s both;
         }
 
         .hero-meta {
             font-size: 0.86rem;
             color: #9ca3af;
             margin-bottom: 1.5rem;
+            animation: fadeInUp 0.6s ease-out 0.5s both;
         }
 
         .hero-meta strong {
@@ -194,6 +282,7 @@
             display: flex;
             flex-wrap: wrap;
             gap: 0.9rem;
+            animation: fadeInUp 0.6s ease-out 0.6s both;
         }
 
         .btn {
@@ -208,6 +297,11 @@
             gap: 0.45rem;
             transition: transform 0.12s ease, box-shadow 0.12s ease, background 0.12s ease, opacity 0.12s ease;
             white-space: nowrap;
+        }
+
+        .btn:focus {
+            outline: 2px solid #6366f1;
+            outline-offset: 2px;
         }
 
         .btn-primary {
@@ -239,6 +333,12 @@
         .hero-photo-wrap {
             display: flex;
             justify-content: center;
+            animation: fadeIn 0.8s ease-out 0.4s both;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
         }
 
         .hero-photo {
@@ -250,6 +350,12 @@
             padding: 6px;
             background: radial-gradient(circle at top, #818cf8, #020617 55%);
             box-shadow: 0 0 40px rgba(129, 140, 248, 0.8);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .hero-photo:hover {
+            transform: scale(1.02);
+            box-shadow: 0 0 60px rgba(129, 140, 248, 1);
         }
 
         .hero-photo-inner {
@@ -267,7 +373,13 @@
 
         /* ---------- Sections ---------- */
         section {
-            padding: 3rem 0;
+            padding: 4rem 0;
+        }
+
+        .section-divider {
+            height: 1px;
+            background: linear-gradient(to right, transparent, rgba(148, 163, 184, 0.3), transparent);
+            margin: 2rem 0;
         }
 
         .section-title {
@@ -311,6 +423,12 @@
             border-radius: 999px;
             border: 1px solid rgba(148, 163, 184, 0.45);
             background: rgba(15, 23, 42, 0.98);
+            transition: border-color 0.2s, background 0.2s;
+        }
+
+        .chip:hover {
+            border-color: rgba(99, 102, 241, 0.6);
+            background: rgba(99, 102, 241, 0.1);
         }
 
         .card {
@@ -319,6 +437,13 @@
             border: 1px solid rgba(148, 163, 184, 0.25);
             padding: 1rem 1.1rem;
             box-shadow: 0 18px 50px rgba(15, 23, 42, 0.9);
+            transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
+        }
+
+        .card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 22px 60px rgba(15, 23, 42, 1);
+            border-color: rgba(148, 163, 184, 0.4);
         }
 
         .card-title {
@@ -367,6 +492,12 @@
             border-radius: 999px;
             background: rgba(15, 23, 42, 0.98);
             border: 1px solid rgba(75, 85, 99, 0.9);
+            transition: border-color 0.2s, background 0.2s;
+        }
+
+        .pill:hover {
+            border-color: rgba(99, 102, 241, 0.6);
+            background: rgba(99, 102, 241, 0.1);
         }
 
         /* ---------- Projects ---------- */
@@ -391,6 +522,46 @@
         .project-label span {
             font-size: 0.7rem;
             color: #a5b4fc;
+        }
+
+        .project-label.completed {
+            border-color: rgba(34, 197, 94, 0.6);
+        }
+
+        .project-label.completed span {
+            color: #86efac;
+        }
+
+        .project-label.planned {
+            border-color: rgba(251, 191, 36, 0.6);
+        }
+
+        .project-label.planned span {
+            color: #fde047;
+        }
+
+        .project-links {
+            display: flex;
+            gap: 0.5rem;
+            margin-top: 0.8rem;
+        }
+
+        .project-link {
+            font-size: 0.75rem;
+            padding: 0.3rem 0.7rem;
+            border-radius: 999px;
+            border: 1px solid rgba(148, 163, 184, 0.5);
+            background: rgba(15, 23, 42, 0.95);
+            transition: all 0.2s;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.3rem;
+        }
+
+        .project-link:hover {
+            border-color: #6366f1;
+            background: rgba(99, 102, 241, 0.1);
+            transform: translateY(-1px);
         }
 
         /* ---------- Contact ---------- */
@@ -426,11 +597,47 @@
             border-radius: 999px;
             background: rgba(15, 23, 42, 0.95);
             border: 1px solid rgba(148, 163, 184, 0.8);
+            transition: all 0.2s;
+        }
+
+        .contact-item:hover {
+            border-color: rgba(56, 189, 248, 0.8);
+            background: rgba(56, 189, 248, 0.1);
         }
 
         .contact-item a {
             text-decoration: underline;
             text-decoration-style: dotted;
+        }
+
+        /* ---------- Back to Top ---------- */
+        .back-to-top {
+            position: fixed;
+            bottom: 2rem;
+            right: 2rem;
+            width: 48px;
+            height: 48px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #6366f1, #8b5cf6);
+            color: white;
+            border: none;
+            cursor: pointer;
+            display: none;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+            box-shadow: 0 4px 12px rgba(99, 102, 241, 0.4);
+            transition: all 0.3s ease;
+            z-index: 15;
+        }
+
+        .back-to-top.visible {
+            display: flex;
+        }
+
+        .back-to-top:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 8px 20px rgba(99, 102, 241, 0.6);
         }
 
         /* ---------- Footer ---------- */
@@ -466,12 +673,23 @@
                 display: none;
             }
 
+            .mobile-menu-btn {
+                display: block;
+            }
+
             .hero-title {
                 font-size: 2.1rem;
             }
 
             section {
-                padding: 2.2rem 0;
+                padding: 2.5rem 0;
+            }
+
+            .back-to-top {
+                bottom: 1rem;
+                right: 1rem;
+                width: 44px;
+                height: 44px;
             }
         }
     </style>
@@ -490,9 +708,19 @@
                     <a href="#projects">Projects</a>
                     <a href="#contact">Contact</a>
                 </div>
+                <button class="mobile-menu-btn" id="menuBtn" aria-label="Toggle menu">☰</button>
             </nav>
         </div>
     </header>
+
+    <!-- Mobile Navigation -->
+    <nav class="mobile-nav" id="mobileNav">
+        <a href="#about">About</a>
+        <a href="#education">Education</a>
+        <a href="#skills">Skills</a>
+        <a href="#projects">Projects</a>
+        <a href="#contact">Contact</a>
+    </nav>
 
     <!-- Hero -->
     <main>
@@ -509,7 +737,7 @@
                     <h1 class="hero-title">Hi, I'm <span>Ayyappan P</span> 👋</h1>
                     <div class="hero-role">CSE Student & Aspiring Software Developer</div>
                     <p class="hero-subtitle">
-                        I’m a B.E Computer Science and Engineering student who loves building clean,
+                        I'm a B.E Computer Science and Engineering student who loves building clean,
                         modern web experiences and learning how real-world software is built.
                         I believe in improving a little every single day.
                     </p>
@@ -535,24 +763,25 @@
                 <div class="hero-photo-wrap">
                     <div class="hero-photo">
                         <div class="hero-photo-inner">
-                            <!-- Your photo file - make sure the file is in the same folder and named "me.jpg" -->
-                            <img src="me.webp" loading="lazy" alt="Ayyappan P">
+                            <img src="me.webp" loading="lazy" alt="Ayyappan P - CSE Student">
                         </div>
                     </div>
                 </div>
             </div>
         </section>
 
+        <div class="section-divider"></div>
+
         <!-- About -->
         <section id="about">
             <div class="container">
                 <h2 class="section-title">About Me</h2>
-                <p class="section-subtitle">Who I am, what I do, and what I’m working towards.</p>
+                <p class="section-subtitle">Who I am, what I do, and what I'm working towards.</p>
 
                 <div class="about-grid">
                     <div class="about-text">
                         <p>
-                            I’m Ayyappan, a Computer Science and Engineering student who enjoys turning ideas
+                            I'm Ayyappan, a Computer Science and Engineering student who enjoys turning ideas
                             into simple, functional, and visually pleasing interfaces. I like understanding
                             how things work behind the scenes and slowly building my skills from the basics upward.
                         </p>
@@ -592,6 +821,8 @@
             </div>
         </section>
 
+        <div class="section-divider"></div>
+
         <!-- Education -->
         <section id="education">
             <div class="container">
@@ -608,7 +839,7 @@
                             Currently pursuing my B.E in CSE, building a strong foundation in programming,
                             data structures, algorithms, computer networks, operating systems, and software engineering
                             concepts.
-                            Alongside academics, I’m learning practical skills through personal projects and online
+                            Alongside academics, I'm learning practical skills through personal projects and online
                             resources.
                         </p>
                     </div>
@@ -616,11 +847,13 @@
             </div>
         </section>
 
+        <div class="section-divider"></div>
+
         <!-- Skills -->
         <section id="skills">
             <div class="container">
                 <h2 class="section-title">Skills</h2>
-                <p class="section-subtitle">Technologies and tools I’m learning and using.</p>
+                <p class="section-subtitle">Technologies and tools I'm learning and using.</p>
 
                 <div class="cards-grid">
                     <div class="card">
@@ -668,16 +901,18 @@
             </div>
         </section>
 
+        <div class="section-divider"></div>
+
         <!-- Projects -->
         <section id="projects">
             <div class="container">
                 <h2 class="section-title">Projects</h2>
-                <p class="section-subtitle">Things I’ve built and ideas I’m working on.</p>
+                <p class="section-subtitle">Things I've built and ideas I'm working on.</p>
 
                 <div class="cards-grid">
                     <!-- Project 1 -->
                     <div class="card">
-                        <div class="project-label">
+                        <div class="project-label completed">
                             ● <span>Completed</span>
                         </div>
                         <div class="card-title">Personal Portfolio Website</div>
@@ -685,26 +920,26 @@
                         <p class="project-desc">
                             A responsive personal portfolio website designed to present my
                             skills, education, projects, and contact information in a clean,
-                            dark-themed interface with a glowing profile image.
+                            dark-themed interface with smooth animations and modern design.
                         </p>
                         <div class="pill-row">
                             <span class="pill">Responsive Design</span>
                             <span class="pill">Dark Theme</span>
-                            <span class="pill">Clean Layout</span>
+                            <span class="pill">Animations</span>
                         </div>
                     </div>
 
                     <!-- Project 2 -->
                     <div class="card">
-                        <div class="project-label">
+                        <div class="project-label completed">
                             ● <span>Completed</span>
                         </div>
                         <div class="card-title">Student CGPA / GPA Calculator</div>
                         <div class="card-sub">Java</div>
                         <p class="project-desc">
-                            A console or UI-based calculator to help students quickly compute
+                            A console-based calculator to help students quickly compute
                             their GPA/CGPA based on subject credits and grades. This project
-                            will help me practice Java, logic building, and user input handling.
+                            helped me practice Java, logic building, and user input handling.
                         </p>
                         <div class="pill-row">
                             <span class="pill">Java</span>
@@ -715,7 +950,7 @@
 
                     <!-- Project 3 -->
                     <div class="card">
-                        <div class="project-label">
+                        <div class="project-label planned">
                             ● <span>Planned</span>
                         </div>
                         <div class="card-title">Task & Notes Manager for Students</div>
@@ -736,15 +971,17 @@
             </div>
         </section>
 
+        <div class="section-divider"></div>
+
         <!-- Contact -->
         <section id="contact">
             <div class="container">
                 <h2 class="section-title">Contact</h2>
-                <p class="section-subtitle">Let’s connect and create something meaningful.</p>
+                <p class="section-subtitle">Let's connect and create something meaningful.</p>
 
                 <div class="contact-box">
                     <div class="contact-text">
-                        I’m open to internships, collaborations, and opportunities to learn and grow.
+                        I'm open to internships, collaborations, and opportunities to learn and grow.
                         If you think I could be a good fit for your team, project, or initiative,
                         feel free to reach out to me through any of the platforms below.
                     </div>
@@ -754,6 +991,13 @@
                             <span>📧</span>
                             <a href="mailto:ayyappan.p1208@gmail.com">
                                 ayyappan.p1208@gmail.com
+                            </a>
+                        </div>
+
+                        <div class="contact-item">
+                            <span>📱</span>
+                            <a href="tel:+919042143286">
+                                +91 9042143286
                             </a>
                         </div>
 
@@ -791,17 +1035,54 @@
         </section>
     </main>
 
+    <!-- Back to Top Button -->
+    <button class="back-to-top" id="backToTop" aria-label="Back to top">↑</button>
+
     <!-- Footer -->
     <footer>
-        “Every expert was once a beginner — I’m on the journey.”<br>
+        "Every expert was once a beginner — I'm on the journey."<br>
         © <span id="year"></span> Ayyappan P · Built with HTML &amp; CSS
     </footer>
 
     <script>
         // Set current year in footer
         document.getElementById("year").textContent = new Date().getFullYear();
+
+        // Mobile menu toggle
+        const menuBtn = document.getElementById("menuBtn");
+        const mobileNav = document.getElementById("mobileNav");
+        
+        menuBtn.addEventListener("click", () => {
+            mobileNav.classList.toggle("active");
+            menuBtn.textContent = mobileNav.classList.contains("active") ? "✕" : "☰";
+        });
+
+        // Close mobile menu when clicking a link
+        mobileNav.querySelectorAll("a").forEach(link => {
+            link.addEventListener("click", () => {
+                mobileNav.classList.remove("active");
+                menuBtn.textContent = "☰";
+            });
+        });
+
+        // Back to top button
+        const backToTop = document.getElementById("backToTop");
+        
+        window.addEventListener("scroll", () => {
+            if (window.scrollY > 300) {
+                backToTop.classList.add("visible");
+            } else {
+                backToTop.classList.remove("visible");
+            }
+        });
+
+        backToTop.addEventListener("click", () => {
+            window.scrollTo({
+                top: 0,
+                behavior: "smooth"
+            });
+        });
     </script>
 </body>
 
 </html>
-
